@@ -1,5 +1,5 @@
 ---
-name: tailwindcss
+name: tailwindcss-hairyf
 description: Tailwind CSS utility-first CSS framework. Use when styling web applications with utility classes, building responsive designs, or customizing design systems with theme variables.
 metadata:
   author: Hairyf
@@ -7,7 +7,7 @@ metadata:
   source: Generated from https://github.com/tailwindlabs/tailwindcss.com, scripts located at https://github.com/hairyf/skills
 ---
 
-# Tailwind CSS
+# Tailwind CSS - Hairyf
 
 > The skill is based on Tailwind CSS v4.1.18, generated at 2026-01-28.
 

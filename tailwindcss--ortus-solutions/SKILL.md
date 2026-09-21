@@ -1,5 +1,5 @@
 ---
-name: tailwind-expert
+name: tailwindcss-ortus-solutions
 description: Use when designing, implementing, or refactoring Tailwind CSS systems for consistency, scale, and performance. Invoke for utility composition, design tokens, theme extension, responsive strategy, accessibility styling, and class management patterns.
 license: MIT
 metadata:
@@ -13,7 +13,7 @@ metadata:
   related-skills: vuejs-expert, bootstrap-expert, vite-expert, code-reviewer
 ---
 
-# Tailwind Expert
+# Tailwind Expert - Ortus Solutions
 
 Utility-first CSS specialist for scalable design systems and maintainable UI codebases.
 
