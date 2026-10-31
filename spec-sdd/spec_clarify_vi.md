@@ -1,64 +1,82 @@
-
 ---
-name: spec-clarify-vi
-description: Kiểm định chất lượng và tính nhất quán của đặc tả theo đối tượng nghiệp vụ khi gọi @spec_clarify_vi hoặc /spec_clarify_vi. Rà soát ./spec/features/*.md để phát hiện trùng lặp, sai chủ sở hữu, xung đột, thiếu liên kết nghiệm thu, tham chiếu hỏng và câu hỏi còn mở; không phỏng vấn làm rõ, chuyển vấn đề cần quyết định sang spec_specify_vi.
+name: spec_clarify_vi
+description: Kiểm định độc lập chất lượng đặc tả tiếng Việt trong ./spec/features/*.md theo đối tượng hoặc toàn bộ dự án; phát hiện xung đột, trùng yêu cầu, sai chủ sở hữu, lỗi liên kết US–FR–AC, mã trùng, câu hỏi mở và vi phạm chính sách. Chỉ báo cáo mặc định, không phỏng vấn nghiệp vụ; hỗ trợ tên /spec_clarify_vi nếu môi trường đã đăng ký lệnh.
 ---
 
-# Kiểm định chất lượng đặc tả theo đối tượng — tiếng Việt
+# SPEC CLARIFY VI — Kiểm định đặc tả
 
-## 1. Mục đích và phân định trách nhiệm
-- BẮT BUỘC sử dụng tiếng Việt; chỉ giữ nguyên đường dẫn, tên file, mã yêu cầu và định danh kỹ thuật cần thiết.
-- `spec_specify_vi` chịu trách nhiệm tạo/cập nhật đặc tả, hỏi đáp làm rõ và quản lý vòng lặp quyết định nghiệp vụ.
-- `spec_clarify_vi` chỉ thực hiện **kiểm định, đối chiếu, phát hiện vấn đề và báo cáo**; không hỏi người dùng lựa chọn phương án nghiệp vụ, không tổ chức vòng lặp làm rõ, không tự biến giả định thành quyết định.
-- Chỉ phân tích **Cái gì** và **Tại sao**; không quyết định công nghệ, API, kiến trúc, cơ sở dữ liệu hoặc thuật toán.
+## 1. Trách nhiệm
+- BẮT BUỘC dùng tiếng Việt; giữ nguyên mã, đường dẫn và định danh kỹ thuật cần thiết.
+- Chỉ **đọc, đối chiếu, phân loại và báo cáo** chất lượng What/Why; không tự phỏng vấn, tự chốt nghiệp vụ, tự thiết kế API/kiến trúc/cơ sở dữ liệu hoặc sửa mã ứng dụng.
+- `spec_feature_vi` là nơi tạo/cập nhật yêu cầu và hỏi đáp làm rõ. Chuyển các câu hỏi cần quyết định về `spec_feature_vi`, không đưa quyết định chưa xác nhận vào FR/AC.
+- Nguồn quy tắc chuẩn của bộ Skill là `./spec/AGENT.md`. Nếu thiếu, báo rõ và kiểm tra chỉ dẫn dự án được khai báo; nếu chính sách khác mâu thuẫn, báo **xung đột chính sách**, không tự chọn. Không mặc định `./spec/constitution.md` là nguồn duy nhất.
 
-## 2. Đầu vào và phạm vi
-- Nhận tham số sau `/spec_clarify_vi` hoặc `@spec_clarify_vi`: tên đối tượng, file đối tượng, nhóm đối tượng hoặc `all` (mặc định kiểm tra toàn bộ).
-- Làm việc ở gốc dự án; bỏ qua `.git` ở mọi cấp, tệp bí mật, `.env`, dữ liệu cá nhân không cần thiết và thư mục sinh tự động.
-- Đọc `./spec/constitution.md` nếu tồn tại; nếu không có, kiểm tra đường dẫn hiến pháp được dự án khai báo và báo chính xác nguồn đã đọc.
-- Liệt kê `./spec/features/*.md`, đọc toàn bộ file trong phạm vi và các file liên quan qua tham chiếu. Không giả định file theo tên tính năng; dùng tên đối tượng dạng số ít, kebab-case như `user.md`, `file.md`, `folder.md`, `permission.md`.
-- Khi kiểm tra một đối tượng, vẫn đối chiếu các file có liên quan để phát hiện trùng lặp/xung đột. Nếu có nhiều file cũ cùng mô tả một đối tượng, báo là ứng viên chuyển đổi, không tự chọn/xóa.
+## 2. Phạm vi và an toàn
+- Nhận tên đối tượng, file, nhóm đối tượng hoặc `all` (mặc định toàn bộ). Xác định gốc dự án; liệt kê `./spec/features/*.md`, đọc toàn bộ file trong phạm vi và các phụ thuộc trực tiếp. Không suy ra file từ tên tính năng.
+- Bỏ qua mọi `.git` ở mọi cấp, thư mục sinh tự động (`node_modules`, `dist`, `build`, `.nuxt`, `.output`...), tệp bí mật (`.env*`, khóa, chứng chỉ, token) và dữ liệu cá nhân không cần thiết. Không đọc, in hoặc đưa dữ liệu bí mật vào tài liệu.
+- Không sửa mã, chính sách hoặc Skill khác.
+- Không tự di chuyển/xóa tài liệu cũ.
+- Không chạy script dự án không tin cậy.
+- Mặc định **chỉ đọc**. Nếu người dùng yêu cầu sửa, chỉ sửa lỗi kỹ thuật/hình thức có chủ sở hữu và ý nghĩa chắc chắn (liên kết, lỗi trình bày, trùng nguyên văn có căn cứ); không tự quyết định nghiệp vụ, đổi chủ sở hữu, đánh lại mã, xóa tài liệu hoặc sửa chính sách.
 
-## 3. Quy trình bắt buộc
-1. **Khảo sát:** Đọc hiến pháp và các tài liệu cần thiết, kể cả `8.3. Câu hỏi mở`, quyết định làm rõ, lịch sử thay đổi. Xác định đối tượng, file sở hữu, mã US/FR/AC/SC/CL/Q và các liên kết.
-2. **Lập bản đồ sở hữu:** Mỗi yêu cầu nguyên tử có đúng một tài liệu chủ sở hữu. Quy tắc quyền/chia sẻ thuộc `permission.md`, hành vi vòng đời file thuộc `file.md`, thư mục thuộc `folder.md`, tài khoản thuộc `user.md`, nếu phù hợp với định nghĩa thực tế của dự án. Các tài liệu khác chỉ tham chiếu, không lặp lại yêu cầu.
-3. **Kiểm tra chất lượng:** Phát hiện trùng lặp về ngữ nghĩa; sai đối tượng; yêu cầu mâu thuẫn; mã trùng/không ổn định; tham chiếu file/mã không tồn tại; FR thiếu AC; AC không quan sát được; US thiếu giá trị; ngoại lệ thiếu; quy tắc trái hiến pháp; mục tiêu không có kết quả; câu hỏi đã giải quyết nhưng còn trong `8.3` hoặc câu hỏi chưa xác nhận lại xuất hiện như quyết định.
-4. **Đánh giá:** Mỗi phát hiện phải có vị trí file/mã, bằng chứng ngắn, mức độ `Nghiêm trọng / Cao / Vừa / Thấp`, ảnh hưởng và cách xử lý đề xuất. Phân biệt lỗi kiểm định xác định được với vấn đề đòi hỏi quyết định nghiệp vụ.
-5. **Không tự giải quyết mơ hồ:** Với câu hỏi chưa có quyết định, không chọn đáp án, không hỏi đáp tương tác. Chỉ định đối tượng chủ sở hữu, gợi ý chuyển sang `@spec_specify_vi <đối tượng> ...` để người dùng quyết định. Các vấn đề này phải tiếp tục nằm ở `### 8.3. Câu hỏi mở` của file sở hữu, không ghi vào `## Clarifications` kiểu cũ.
-6. **Chế độ mặc định chỉ đọc:** Không chỉnh sửa file khi người dùng chỉ yêu cầu kiểm tra. Nếu người dùng yêu cầu sửa lỗi chất lượng rõ ràng, chỉ được sửa lỗi hình thức, liên kết và nội dung trùng có chủ sở hữu chắc chắn sau khi bảo toàn ý nghĩa, mã và lịch sử; không tự đổi chủ sở hữu hoặc xóa tài liệu cũ khi chưa được phép. Trước và sau khi sửa phải đọc/kiểm chứng các file liên quan.
-7. **Báo cáo:** Trình bày phạm vi đã quét, số file, số phát hiện theo mức độ, danh sách vấn đề theo file/mã, các câu hỏi còn mở và trạng thái `Đạt kiểm định / Cần chỉnh sửa / Chưa sẵn sàng`. Không khẳng định đã sửa khi chưa ghi và đọc lại.
+## 3. Quy trình kiểm định
+1. **Khảo sát:** Đọc chính sách, tài liệu phạm vi, file tham chiếu và lịch sử. Báo file không đọc được; không kết luận toàn bộ nếu phạm vi chưa được kiểm tra đầy đủ.
+2. **Lập bản đồ:** Đối tượng → file sở hữu → US/FR/AC/SC/CL/Q → tham chiếu → trạng thái → quyết định → câu hỏi mở. So sánh tác nhân, hành động, điều kiện, kết quả, quyền sở hữu quy tắc; không kết luận trùng chỉ vì cùng từ khóa.
+3. **Kiểm tra cấu trúc:** Đúng tên/đường dẫn file; các mục bắt buộc; mã duy nhất và ổn định; không tái sử dụng mã ngừng hiệu lực; ngày và lịch sử hợp lý; các câu hỏi chưa xác nhận nằm tại `### 8.3. Câu hỏi mở` (hoặc vị trí tương đương của tài liệu cũ, kèm cảnh báo chuyển đổi).
+4. **Kiểm tra truy vết:** US có FR và AC; FR có AC quan sát được; AC có tiền điều kiện, sự kiện, kết quả; SC có cách đo; liên kết tương đối trỏ tới file tồn tại và fragment/anchor thực tế. Không mặc định `#FR-...` hợp lệ nếu Markdown renderer tạo anchor chữ thường.
+5. **Kiểm tra ngữ nghĩa:** Trùng lặp, mâu thuẫn, sai chủ sở hữu, quy tắc thiếu ngoại lệ, xung đột chính sách, câu hỏi đã giải quyết nhưng còn mở, câu hỏi chưa xác nhận bị ghi thành quyết định, điều kiện nghiệm thu không thể xác minh.
+6. **Phân loại:** **Lỗi xác định** khi có bằng chứng trực tiếp; **Cảnh báo** khi thiếu căn cứ; **Cần quyết định nghiệp vụ** khi có nhiều phương án hợp lệ. Mỗi phát hiện có ID, vị trí file/mã, bằng chứng ngắn, tác động, mức độ, hướng xử lý và chủ sở hữu đề xuất.
+7. **Nếu được phép sửa:** Lập danh sách thay đổi, đọc lại file trước ghi, sao lưu/ghi an toàn nếu hỗ trợ, kiểm chứng lại mọi file bị ảnh hưởng. Nếu sửa dở, báo chính xác file đã/chưa sửa. Không sửa file không thuộc phạm vi cho phép.
+8. **Báo cáo:** Phạm vi thực tế, số file kiểm tra/không kiểm tra, số phát hiện theo mức độ và loại, lỗi theo file/mã, câu hỏi mở, trạng thái và các bước tiếp theo. Không nói đã sửa nếu chưa ghi và đọc lại.
 
-## 4. Quy tắc chống trùng lặp và tham chiếu
-- Mỗi yêu cầu có một nguồn chính thức, các file khác chỉ ghi `Liên quan: ./permission.md#FR-PERMISSION-001` hoặc tham chiếu tương đương hợp lệ.
-- Không coi hai yêu cầu trùng chỉ vì cùng nhắc `file` hoặc `user`: so sánh tác nhân, hành động, điều kiện, kết quả và quyền sở hữu quy tắc.
-- Nếu phát hiện yêu cầu trùng với hai chủ sở hữu hợp lý, báo xung đột chủ sở hữu và chuyển sang `spec_specify_vi` quyết định, không âm thầm hợp nhất.
-- Không tái sử dụng mã đã xóa; không tự đánh lại mã cũ như `FR-001` khi chưa có ánh xạ được chấp thuận.
-- Mỗi file có lịch sử thay đổi riêng; chỉ thêm lịch sử nếu thật sự sửa nội dung file đó.
+## 4. Mức độ và cổng chất lượng
+- **Nghiêm trọng:** Có nguy cơ làm sai quyền/bảo mật, mất yêu cầu hoặc làm không thể xác định đặc tả chính thức; hoặc mâu thuẫn chặn nghiệm thu cốt lõi.
+- **Cao:** FR quan trọng thiếu AC, yêu cầu xung đột, mã trùng gây tham chiếu sai, chủ sở hữu không xác định, câu hỏi quan trọng chưa được quyết định.
+- **Vừa:** Thiếu ngoại lệ, liên kết hỏng không chặn yêu cầu cốt lõi, thiếu truy vết phụ, lịch sử thiếu thông tin hoặc cấu trúc chưa thống nhất.
+- **Thấp:** Trình bày, chính tả, thuật ngữ, liên kết có thể cải thiện nhưng không đổi nghĩa.
+- **Đạt kiểm định:** Đã đọc đủ phạm vi và phụ thuộc trực tiếp; không có phát hiện Nghiêm trọng/Cao; không có câu hỏi quan trọng còn mở trong phạm vi; truy vết yêu cầu cốt lõi hợp lệ. Vấn đề Vừa/Thấp nếu có phải được nêu rõ.
+- **Cần chỉnh sửa:** Có lỗi Vừa/Thấp hoặc lỗi Cao không chặn toàn bộ phạm vi nhưng cần khắc phục trước khi xác nhận cuối cùng; không đồng nghĩa sẵn sàng lập kế hoạch.
+- **Chưa sẵn sàng:** Có lỗi Nghiêm trọng, xung đột/chưa rõ quan trọng chặn nghiệm thu, hoặc không đủ dữ liệu để kiểm định tin cậy. Trường hợp chưa đọc đủ phải ghi rõ **Chưa kiểm định đầy đủ**, không giả là đạt.
+- Nếu có lỗi Cao, trạng thái tối thiểu là **Cần chỉnh sửa**; nếu lỗi đó chặn nghiệm thu thì **Chưa sẵn sàng**. Không gộp số lỗi với số câu hỏi mở mà không giải thích.
 
-## 5. Mẫu báo cáo
+## 5. Quy tắc chuyển xử lý
+- Vấn đề cần quyết định → nêu đối tượng chủ sở hữu dự kiến, câu hỏi và gợi ý `spec_feature_vi <đối tượng> ...`; không tự chọn phương án.
+- Nếu hai file đều có lý do sở hữu hợp lệ, báo xung đột, không âm thầm hợp nhất.
+- Câu hỏi mở phải được giữ trong tài liệu chủ sở hữu; `spec_clarify_vi` không tự thêm câu hỏi vào file khi ở chế độ chỉ đọc.
+- Với tài liệu cũ, báo kế hoạch chuyển đổi và bảng ánh xạ mã dự kiến; chỉ thực hiện sau khi được phép.
+
+## 6. Mẫu báo cáo
 ```markdown
-# BÁO CÁO KIỂM ĐỊNH ĐẶC TẢ
-**Phạm vi:** ...
-**Tài liệu đã kiểm tra:** ...
-**Kết quả:** Đạt kiểm định / Cần chỉnh sửa / Chưa sẵn sàng
+# Báo cáo kiểm định đặc tả
+**Phạm vi yêu cầu:** ...
+**Phạm vi thực tế:** ...
+**File đã đọc / chưa đọc:** ...
+**Nguồn chính sách:** ...
+**Trạng thái:** Đạt kiểm định / Cần chỉnh sửa / Chưa sẵn sàng
+
+## Thống kê
+| Mức độ | Số lượng |
+|---|---|
+| Nghiêm trọng | 0 |
+| Cao | 0 |
+| Vừa | 0 |
+| Thấp | 0 |
 
 ## Phát hiện
-| Mức độ | File / Mã | Vấn đề | Bằng chứng | Hướng xử lý |
-|---|---|---|---|---|
-| Cao | permission.md / FR-PERMISSION-001 | ... | ... | ... |
+| ID | Loại | Mức độ | File / Mã / Vị trí | Bằng chứng | Tác động | Chủ sở hữu | Hướng xử lý |
+|---|---|---|---|---|---|---|---|
 
 ## Câu hỏi nghiệp vụ chưa giải quyết
-- **Đối tượng:** ...; **Câu hỏi:** ...; **Vị trí:** `8.3. Câu hỏi mở`; **Chuyển xử lý:** `@spec_specify_vi ...`.
+- Q-...; đối tượng ...; câu hỏi ...; vị trí ...; chuyển `spec_feature_vi`.
 
-## Tổng kết
-- **Số vấn đề:** ...
-- **File đã thay đổi:** Không có / ...
-- **Trạng thái tiếp theo:** ...
+## Giới hạn kiểm định
+- ...
+## Thay đổi file
+- Không có / danh sách đã ghi và kiểm chứng.
+## Kết luận và bước tiếp theo
+- ...
 ```
 
-## 6. Điều kiện hoàn thành
-- Đã rà soát toàn bộ phạm vi và phụ thuộc trực tiếp; không bỏ qua các câu hỏi mở.
-- Mỗi phát hiện có bằng chứng cụ thể và chủ sở hữu dự kiến; không tự quyết định nghiệp vụ.
-- Không sao chép yêu cầu sang file khác, không tạo file theo tên tính năng.
-- Không sửa hiến pháp, mã ứng dụng, dữ liệu bí mật hoặc file ngoài phạm vi được cho phép.
-- Báo cáo trung thực những phần chưa kiểm tra được.
+## 7. Điều kiện hoàn thành
+- Có bằng chứng cụ thể cho mọi phát hiện; không suy đoán nguồn, quyền sở hữu hoặc trạng thái đã sửa.
+- Không thay đổi hiến pháp, mã ứng dụng, quyết định nghiệp vụ hay file ngoài phạm vi; báo trung thực các phần chưa kiểm tra được.
