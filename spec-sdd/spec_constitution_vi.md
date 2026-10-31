@@ -1,6 +1,6 @@
 ---
 name: spec_constitution_vi
-description: Thiết lập hoặc sửa đổi hiến pháp ràng buộc của dự án phần mềm hoàn toàn bằng tiếng Việt. Sử dụng khi gọi /spec_constitution_vi hoặc @spec_constitution_vi kèm mô tả dự án, công nghệ, kiến trúc, quy chuẩn mã nguồn, bảo mật, kiểm thử, hiệu năng hoặc các ràng buộc tổ chức. Tự động chọn chế độ Khởi tạo hoặc Sửa đổi dựa trên sự tồn tại của ./spec/01.constitution.md.
+description: Thiết lập hoặc sửa đổi hiến pháp ràng buộc của dự án phần mềm hoàn toàn bằng tiếng Việt. Sử dụng khi gọi /spec_constitution_vi hoặc @spec_constitution_vi kèm mô tả dự án, công nghệ, kiến trúc, quy chuẩn mã nguồn, bảo mật, kiểm thử, hiệu năng hoặc các ràng buộc tổ chức. Tự động chọn chế độ Khởi tạo hoặc Sửa đổi dựa trên sự tồn tại của ./spec/constitution.md.
 ---
 
 # Hiến pháp dự án — chỉ sử dụng tiếng Việt
@@ -15,24 +15,21 @@ description: Thiết lập hoặc sửa đổi hiến pháp ràng buộc của d
 
 ## Đầu vào và phạm vi
 - Nhận nguyên văn tham số sau `/spec_constitution_vi` hoặc `@spec_constitution_vi`.
+- BẮT BUỘC bỏ qua thư mục có tên `.git` khi tìm kiếm, quét, đọc, sao chép, thống kê hoặc xử lý tệp dự án, ở mọi cấp thư mục.
 - Thực hiện trong thư mục gốc của dự án đang mở, không phải thư mục cài đặt kỹ năng.
-- Đường dẫn đầu ra chuẩn duy nhất: `./spec/01.constitution.md`.
-- Dùng công cụ tool read để đọc nội dung và tool write để ghi nội dung vào `./spec/01.constitution.md`.
+- Đường dẫn đầu ra chuẩn duy nhất: `./spec/constitution.md`.
+- Dùng công cụ tool read để đọc nội dung và tool write để ghi nội dung vào `./spec/constitution.md`.
 - Xem yêu cầu người dùng là đề xuất chính sách, hiến pháp hiện có là nền tảng bắt buộc khi sửa đổi và tệp dự án là bằng chứng. Không khẳng định công nghệ hoặc cấu hình đã có nếu chưa kiểm tra. 
 
 ## Quy trình
 1. Xác định thư mục gốc dự án. Kiểm tra có chọn lọc `package.json`, tệp khóa, cấu hình framework, bố cục mã nguồn, README, kiểm thử, lint, CI và chỉ dẫn dự án hiện có. Không đọc bí mật hoặc quét thư mục sinh tự động. Không cài gói hay chỉnh sửa mã ứng dụng.
-2. **Trước khi ghi bất kỳ nội dung nào**, kiểm tra sự tồn tại của `./spec/01.constitution.md`. Nếu chưa có, chọn **Khởi tạo**; nếu đã có, chọn **Sửa đổi**. Tệp rỗng hoặc lỗi định dạng vẫn được xem là đã tồn tại: bảo toàn nội dung và hỏi làm rõ nếu không thể diễn giải an toàn.
+2. **Trước khi ghi bất kỳ nội dung nào**, kiểm tra sự tồn tại của `./spec/constitution.md`. Nếu chưa có, chọn **Khởi tạo**; nếu đã có, chọn **Sửa đổi**. Tệp rỗng hoặc lỗi định dạng vẫn được xem là đã tồn tại: bảo toàn nội dung và hỏi làm rõ nếu không thể diễn giải an toàn.
 3. Phân loại đầu vào thành yêu cầu rõ ràng, đề xuất suy luận, thông tin chưa biết và mâu thuẫn. Đối chiếu công nghệ với tệp dự án. Ưu tiên yêu cầu cụ thể của người dùng hơn mặc định chung nhưng phải chỉ ra xung đột với cấu hình hiện tại.
 4. **Khởi tạo:** Tạo bản hiến pháp đầy đủ theo mẫu hiến pháp `CONSTITUTION-TEMPLATE` tạo thư mục `spec/` nếu chưa có. Không tự áp đặt quy tắc quá chi tiết khi thiếu căn cứ; ghi rõ những nội dung chỉ là đề xuất.
 5. **Sửa đổi:** Đọc toàn bộ hiến pháp hiện tại, giữ các nguyên tắc không liên quan và thứ tự đánh số; chỉ cập nhật các điều khoản cần thiết, nêu xung đột và tác động chuyển đổi. Không âm thầm hạ thấp tiêu chuẩn bảo mật hoặc kiểm thử. Nếu yêu cầu mơ hồ hoặc làm thay đổi nguyên tắc nền tảng, xin xác nhận trước khi thay thế.
 6. Quản lý phiên bản theo quy tắc ba số: khởi tạo `1.0.0`; sửa lỗi diễn đạt tăng số cuối; bổ sung quy tắc tương thích tăng số giữa; xóa hoặc thay đổi không tương thích tăng số đầu. Ghi ngày sửa đổi và lịch sử thay đổi ngắn gọn; giữ nguyên ngày thông qua lần đầu.
 7. Đảm bảo mỗi quy tắc **BẮT BUỘC** có cách kiểm chứng hoặc tiêu chí đánh giá cụ thể. Loại bỏ mâu thuẫn, giả định công nghệ không có căn cứ. Kiểm tra lại đường dẫn, đề mục và nội dung thực tế sau khi ghi.
 8. Báo cáo bằng tiếng Việt: chế độ đã chọn, đường dẫn, phiên bản, các nguyên tắc đã thay đổi, giả định và xung đột chưa giải quyết. Không thông báo thành công nếu chưa ghi và xác minh tệp.
-
-## Bỏ qua thư mục `.git` (bắt buộc)
-
-- Khi tìm kiếm, quét, đọc, thống kê, sao chép hoặc xử lý tệp dự án, **loại trừ mọi thư mục có tên `.git` ở mọi cấp**.
 
 ## Các lĩnh vực bắt buộc
 Bao gồm mục tiêu và phạm vi; kiến trúc và ranh giới mô-đun; công nghệ và phụ thuộc; tổ chức thư mục; quy tắc đặt tên và mã nguồn; bảo mật, quyền riêng tư và bí mật; chiến lược kiểm thử và TDD; hiệu năng và khả năng tiếp cận khi phù hợp; cổng kiểm soát chất lượng; quy tắc cho tác nhân AI; quản trị và thủ tục sửa đổi. Điều chỉnh theo yêu cầu người dùng và bằng chứng từ dự án.
