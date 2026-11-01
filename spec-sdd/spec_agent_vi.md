@@ -22,7 +22,8 @@ description: Khởi tạo, rà soát hoặc sửa đổi quy tắc tác nhân v�
 
 ## 3. Phạm vi và an toàn
 - Làm việc tại gốc dự án được xác định bằng ngữ cảnh hoặc xác nhận của người dùng. Không thao tác tại thư mục cài đặt Skill.
-- Bỏ qua mọi `.git` ở mọi cấp, thư mục sinh tự động (`node_modules`, `dist`, `build`, `.nuxt`, `.output`...), tệp bí mật (`.env*`, khóa, chứng chỉ, token) và dữ liệu cá nhân không cần thiết. Không đọc, in hoặc đưa dữ liệu bí mật vào tài liệu.
+- BẮT BUỘC bỏ qua thư mục có tên `.git` khi tìm kiếm, quét, đọc, sao chép, thống kê hoặc xử lý tệp dự án, ở mọi cấp thư mục.
+- BẮT BUỘC bỏ qua thư mục sinh tự động (`node_modules`, `dist`, `build`, `.nuxt`, `.output`...), tệp bí mật (`.env*`, khóa, chứng chỉ, token) và dữ liệu cá nhân không cần thiết. Không đọc, in hoặc đưa dữ liệu bí mật vào tài liệu.
 ### 3.1. Vùng cấm tuyệt đối: Git và thư mục ẩn
 - **BẮT BUỘC:** Trong toàn bộ vòng đời Skill, KHÔNG đọc, liệt kê, tìm kiếm, thống kê, phân tích hoặc suy luận từ bất kỳ thư mục `.git` nào, kể cả `.git` ở thư mục cha, thư mục con, worktree, submodule hoặc đường dẫn liên kết. Không đọc file `.git` trỏ tới gitdir.
 - **BẮT BUỘC:** KHÔNG chạy bất kỳ lệnh `git` nào, bao gồm `git status`, `git log`, `git show`, `git diff`, `git ls-files`, `git branch`, `git rev-parse` hoặc lệnh tương đương qua API/thư viện/công cụ khác. Không truy vấn commit, nhánh, index, object database, reflog hay lịch sử phiên bản, kể cả khi mục đích chỉ là xác định file hiện tại.
